@@ -1,65 +1,74 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Link from "next/link";
+import { Image } from "@chakra-ui/image";
+import { Flex, Text, Box } from "@chakra-ui/layout";
+import baseUrl from "../helpers/baseUrl";
 
-export default function Home() {
+const Home = ({ products }) => {
+  const productList = products.map((product) => {
+    return (
+      <Box p={4} borderRadius="lg" key={product._id}>
+        <Link href={`/product/${encodeURIComponent(product._id)}`}>
+          <a>
+            <Box
+              maxW="xs"
+              p={3}
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+            >
+              <Image
+                src={product.mediaUrl}
+                alt={product.name}
+                objectFit="cover"
+                borderRadius="lg"
+                fallbackSrc="https://via.placeholder.com/500"
+              />
+              <Box
+                mt="3"
+                fontWeight="semibold"
+                as="h2"
+                fontSize="large"
+                lineHeight="tight"
+                isTruncated
+                textTransform="uppercase"
+              >
+                {product.name}
+              </Box>
+              <Box mt="2" as="h4">
+                <Text noOfLines={[2, 3, 4]}>{product.description}</Text>
+              </Box>
+              <Box mt="2" as="h5">
+                <Text fontWeight="bold">{product.price}$</Text>
+              </Box>
+            </Box>
+          </a>
+        </Link>
+      </Box>
+    );
+  });
+  console.log(products);
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Flex
+      flexWrap="wrap"
+      alignItems="center"
+      justifyContent="center"
+      maxW="1400px"
+      mt={10}
+      mx="auto"
+    >
+      {productList}
+    </Flex>
+  );
+};
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+export async function getStaticProps() {
+  const res = await fetch(`${baseUrl}/api/products`);
+  const data = await res.json();
+  return {
+    props: {
+      products: data,
+    },
+  };
 }
+
+export default Home;
