@@ -38,7 +38,7 @@ const Home = ({ products }) => {
                 <Text noOfLines={[2, 3, 4]}>{product.description}</Text>
               </Box>
               <Box mt="2" as="h5">
-                <Text fontWeight="bold">{product.price}$</Text>
+                <Text fontWeight="bold">₹ {product.price}</Text>
               </Box>
             </Box>
           </a>
