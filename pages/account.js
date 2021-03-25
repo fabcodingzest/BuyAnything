@@ -2,10 +2,12 @@ import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import Icon from "@chakra-ui/icon";
 import { Flex, Box } from "@chakra-ui/layout";
+import { Text } from "@chakra-ui/layout";
 import { Container } from "@chakra-ui/layout";
 import { Collapse } from "@chakra-ui/transition";
 import { parseCookies } from "nookies";
 import { IoIosArrowDown } from "react-icons/io";
+import { MdBorderColor } from "react-icons/md";
 import baseUrl from "../helpers/baseUrl";
 
 const Account = ({ orders }) => {
@@ -15,26 +17,81 @@ const Account = ({ orders }) => {
   const OrderHistory = () => {
     const { isOpen, onToggle } = useDisclosure();
     return (
-      <Container>
-        {orders.map(item => {
+      <Box>
+        {orders.map((item) => {
           return (
-            <Flex justifyContent="space-between">
+            <Flex
+              justifyContent="space-between"
+              direction="column"
+              key={item._id}
+              border="1px"
+              p={4}
+              borderRadius="lg"
+              borderColor="gray.300"
+            >
+              <Flex justifyContent="space-between" width="100%">
+                <Text isTruncated>
+                  <Icon as={MdBorderColor} boxSize={{ sm: 6 }} mr={4} />
+                  {item.createdAt}
+                </Text>
+                <Button size="xs" onClick={onToggle}>
+                  <Icon as={IoIosArrowDown} />
+                </Button>
+              </Flex>
               <Collapse in={isOpen}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt,
-                ad.
+                <Box my={4} backgroundColor="gray.300" p={4} borderRadius="lg">
+                  <Flex justifyContent="space-between" width="100%">
+                    <Text fontWeight="bold">Items</Text>
+                    <Text fontWeight="bold">Price</Text>
+                  </Flex>
+                  {item.products.map((pItem) => {
+                    return (
+                      <Flex
+                        justifyContent="space-between"
+                        width="100%"
+                        key={pItem._id}
+                      >
+                        <Text as="h5" key={pItem._id} fontWeight="medium">
+                          {pItem.product.name} X {pItem.quantity}
+                        </Text>
+                        <Text fontWeight="medium">{pItem.product.price}</Text>
+                      </Flex>
+                    );
+                  })}
+                  <Text
+                    as="h5"
+                    align="end"
+                    fontSize="md"
+                    fontWeight="bold"
+                    mt={2}
+                  >
+                    Total ₹ {item.total}
+                  </Text>
+                </Box>
               </Collapse>
-              <Button size="xs" onClick={onToggle}>
-                <Icon as={IoIosArrowDown} />
-              </Button>
             </Flex>
           );
         })}
-      </Container>
+      </Box>
     );
   };
   return (
     <Container>
-      <Flex>Hello</Flex>
+      <Box
+        p={10}
+        backgroundColor="blue.500"
+        color="white"
+        align="center"
+        mb={6}
+      >
+        <Text as="h1" fontSize="3xl" fontWeight="bold">
+          Account Details
+        </Text>
+        <Text py={4} fontSize="xl">
+          Name: {user.name}
+        </Text>
+        <Text fontSize="xl">Email: {user.email}</Text>
+      </Box>
       <Box>
         <OrderHistory />
       </Box>
