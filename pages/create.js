@@ -39,7 +39,7 @@ const imageUpload = async (mediaURL) => {
   data.append("cloud_name", "fabriz");
 
   const res = await fetch(
-    `https://api.cloudinary.com/v1_1/fabriz/image/upload`,
+    `${process.env.NEXT_PUBLIC_CLOUDINARY_URL}/image/upload`,
     {
       method: "POST",
       body: data,
@@ -89,6 +89,7 @@ const onSubmit = async ({ name, price, description, media }, toast, router) => {
 const Create = () => {
   const toast = useToast();
   const router = useRouter();
+  console.log(process.env.MONGO_URI);
 
   return (
     <Container

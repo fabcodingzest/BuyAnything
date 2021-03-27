@@ -204,27 +204,21 @@ const Product = ({ product }) => {
   );
 };
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getStaticProps({ params: { id } }) {
   const res = await fetch(`${baseUrl}/api/product/${id}`);
   const data = await res.json();
   return { props: { product: data } };
 }
 
-// export async function getStaticProps({ params: { id } }) {
-//   const res = await fetch(`${baseUrl}/api/product/${id}`);
-//   const data = await res.json();
-//   return { props: { product: data } };
-// }
+export async function getStaticPaths() {
+  const res = await fetch(`${baseUrl}/api/products`);
+  const products = await res.json();
 
-// export async function getStaticPaths() {
-//   const res = await fetch(`${baseUrl}/api/products`);
-//   const products = await res.json();
-
-//   const paths = products.map((product) => ({ params: { id: product._id } }));
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
+  const paths = products.map((product) => ({ params: { id: product._id } }));
+  return {
+    paths,
+    fallback: true,
+  };
+}
 
 export default Product;
