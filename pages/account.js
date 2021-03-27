@@ -8,6 +8,7 @@ import { Collapse } from "@chakra-ui/transition";
 import { parseCookies } from "nookies";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdBorderColor } from "react-icons/md";
+import UserRoles from "../components/UserRoles";
 import baseUrl from "../helpers/baseUrl";
 
 const Account = ({ orders }) => {
@@ -76,7 +77,7 @@ const Account = ({ orders }) => {
     );
   };
   return (
-    <Container>
+    <Container maxW="container.lg">
       <Box
         p={10}
         backgroundColor="blue.500"
@@ -92,9 +93,19 @@ const Account = ({ orders }) => {
         </Text>
         <Text fontSize="xl">Email: {user.email}</Text>
       </Box>
-      <Box>
-        <OrderHistory />
-      </Box>
+      <Text as="h2">Order History</Text>
+      {orders.length === 0 ? (
+        <Container>
+          <Text as="h3" fontSize="2xl">
+            You have no order History
+          </Text>
+        </Container>
+      ) : (
+        <Box>
+          <OrderHistory />
+        </Box>
+      )}
+      {user.role === "root" && <UserRoles />}
     </Container>
   );
 };
@@ -111,7 +122,6 @@ export async function getServerSideProps(ctx) {
     headers: { Authorization: token },
   });
   const res2 = await res.json();
-  console.log(res2);
 
   return { props: { orders: res2 } };
 }

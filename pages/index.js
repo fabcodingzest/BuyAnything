@@ -46,7 +46,6 @@ const Home = ({ products }) => {
       </Box>
     );
   });
-  console.log(products);
   return (
     <Flex
       flexWrap="wrap"

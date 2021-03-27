@@ -28,6 +28,6 @@ export default async (req, res) => {
       res.status(401).json({ error: "Email or password is incorrect!'" });
     }
   } catch (e) {
-    console.log(e);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

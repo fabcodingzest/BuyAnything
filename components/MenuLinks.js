@@ -52,7 +52,7 @@ const MenuLinks = ({ isOpen, isActive, toggle, user }) => {
         <MenuItem to="/cart" isActive={isActive} toggle={toggle}>
           <Icon w={6} h={6} as={ImCart} />
         </MenuItem>
-        {user.role === "admin" && user.role === "root" && (
+        {(user.role === "admin" || user.role === "root") && (
           <MenuItem to="/create" isActive={isActive} toggle={toggle}>
             Create
           </MenuItem>

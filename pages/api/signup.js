@@ -23,10 +23,9 @@ export default async (req, res) => {
       email,
       password: hashedPassword,
     }).save();
-    console.log(newUser);
     await new Cart({ user: newUser._id }).save();
     res.status(201).json({ message: "Signup successful" });
   } catch (e) {
-    console.log(e);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

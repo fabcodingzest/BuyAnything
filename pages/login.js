@@ -48,7 +48,6 @@ const Login = () => {
         isClosable: true,
       });
     } else {
-      console.log(res2);
       Cookies.set("token", res2.token, { expires: 7 });
       Cookies.set("user", res2.user, { expires: 7 });
       router.push("/account");

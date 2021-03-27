@@ -56,7 +56,6 @@ export default async (req, res) => {
     await Cart.findOneAndUpdate({ _id: cart._id }, { $set: { products: [] } });
     res.status(200).json({ message: "Payment was successful!" });
   } catch (error) {
-    console.log(error);
     return res.status(401).json({ error: "Error processing payment" });
   }
 };

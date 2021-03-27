@@ -65,7 +65,6 @@ const onSubmit = async ({ name, price, description, media }, toast, router) => {
       }),
     });
     const res2 = await res.json();
-    console.log(res2);
     if (res2.error) {
       toast({
         description: res2.error,
@@ -74,7 +73,6 @@ const onSubmit = async ({ name, price, description, media }, toast, router) => {
         isClosable: true,
       });
     } else {
-      console.log("data saved");
       toast({
         description: "Product saved successfully!",
         status: "success",
@@ -84,7 +82,7 @@ const onSubmit = async ({ name, price, description, media }, toast, router) => {
       router.push(`/product/${res2._id}`);
     }
   } catch (e) {
-    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -196,7 +194,6 @@ const Create = () => {
 export async function getServerSideProps(ctx) {
   const cookie = parseCookies(ctx);
   const user = cookie.user ? JSON.parse(cookie.user) : "";
-  console.log(user);
   if (user.role !== "admin") {
     const { res } = ctx;
     res.writeHead(302, { Location: "/" });

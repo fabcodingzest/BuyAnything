@@ -110,7 +110,6 @@ const Cart = ({ error, products }) => {
       body: JSON.stringify({ paymentInfo }),
     });
     const res2 = await res.json();
-    console.log(res2);
   };
 
   const TotalPrice = () => {
