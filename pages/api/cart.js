@@ -1,7 +1,6 @@
-import jwt from "jsonwebtoken";
 import Cart from "../../models/Cart";
-import Authenticated from "../../middleware/Authenticated";
 import initDB from "../../helpers/initDB";
+import Authenticated from "../../middleware/Authenticated";
 
 initDB();
 

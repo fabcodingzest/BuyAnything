@@ -1,6 +1,6 @@
 import User from "../../models/User";
-import Authenticated from "../../middleware/Authenticated";
 import initDB from "../../helpers/initDB";
+import Authenticated from "../../middleware/Authenticated";
 
 initDB();
 
