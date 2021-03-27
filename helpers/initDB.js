@@ -1,19 +1,17 @@
 import mongoose from "mongoose";
 
-const initDB =  () => {
-  if (mongoose.connections[0].readyState) {
-    console.log("alredy connected");
+const initDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    console.log("Already Connected");
     return;
   }
-  mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
+  console.log(process.env.MONGO_URI);
+
+  return mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
-  });
-  mongoose.connection.on("connected", () => {
-    console.log("connected to mongo");
-  });
-  mongoose.connection.on("error", (err) => {
-    console.log("error connecting", err);
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useNewUrlParser: true,
   });
 };
 
