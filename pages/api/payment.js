@@ -5,7 +5,7 @@ import Stripe from "stripe";
 import { v4 as uuidV4 } from "uuid";
 import jwt from "jsonwebtoken";
 
-const stripe = Stripe(process.env.STRIPE_SECRET);
+const stripe = Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET);
 export default async (req, res) => {
   await initDB();
   const { paymentInfo } = req.body;
@@ -14,7 +14,10 @@ export default async (req, res) => {
     return res.status(401).json({ error: "You must be logged in!" });
   }
   try {
-    const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
+    const { userId } = jwt.verify(
+      authorization,
+      process.env.NEXT_PUBLIC_JWT_SECRET
+    );
     const cart = await Cart.findOne({ user: userId }).populate(
       "products.product"
     );

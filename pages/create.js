@@ -89,7 +89,7 @@ const onSubmit = async ({ name, price, description, media }, toast, router) => {
 const Create = () => {
   const toast = useToast();
   const router = useRouter();
-  console.log(process.env.MONGO_URI);
+  console.log(process.env.NEXT_PUBLIC_MONGO_URI);
 
   return (
     <Container

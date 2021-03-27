@@ -7,7 +7,10 @@ function Authenticated(icomponent) {
       return res.status(401).json({ error: "You must be logged in!" });
     }
     try {
-      const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
+      const { userId } = jwt.verify(
+        authorization,
+        process.env.NEXT_PUBLIC_JWT_SECRET
+      );
       req.userId = userId;
       return icomponent(req, res);
     } catch (error) {

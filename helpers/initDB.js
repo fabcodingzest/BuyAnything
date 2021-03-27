@@ -5,9 +5,9 @@ const initDB = async () => {
     console.log("Already Connected");
     return;
   }
-  console.log(process.env.MONGO_URI);
+  console.log(process.env.NEXT_PUBLIC_MONGO_URI);
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI, {
       useUnifiedTopology: true,
       useFindAndModify: false,
       useCreateIndex: true,

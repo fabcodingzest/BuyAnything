@@ -18,9 +18,13 @@ export default async (req, res) => {
     }
     const doMatch = await bcrypt.compare(password, user.password);
     if (doMatch) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-      });
+      const token = jwt.sign(
+        { userId: user._id },
+        process.env.NEXT_PUBLIC_JWT_SECRET,
+        {
+          expiresIn: "7d",
+        }
+      );
       const { name, email, role } = user;
       res.status(201).json({ token, user: { name, role, email } });
     } else {
