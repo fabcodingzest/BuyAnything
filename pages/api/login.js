@@ -9,7 +9,7 @@ export default async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      res.status(422).json({ error: "Please pass all the fields" });
+      return res.status(422).json({ error: "Please pass all the fields" });
     }
     const user = await User.findOne({ email });
     if (!user) {

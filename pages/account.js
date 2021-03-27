@@ -123,7 +123,9 @@ export async function getServerSideProps(ctx) {
   });
   const res2 = await res.json();
 
-  return { props: { orders: res2 } };
+  return {
+    props: { orders: res2 },
+  };
 }
 
 export default Account;
