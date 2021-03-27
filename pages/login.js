@@ -1,3 +1,4 @@
+import baseUrl from "../helpers/baseUrl";
 import ChakraInput from "../components/ChakraInput";
 import { Button } from "@chakra-ui/button";
 import { Container, Flex, Text } from "@chakra-ui/layout";
@@ -7,7 +8,6 @@ import * as Yup from "yup";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import baseUrl from "../helpers/baseUrl";
 
 const initialValues = {
   email: "",
@@ -39,6 +39,7 @@ const Login = () => {
         password,
       }),
     });
+    console.log(res);
     const res2 = await res.json();
     if (res2.error) {
       toast({
