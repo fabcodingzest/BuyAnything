@@ -1,9 +1,8 @@
 import initDB from "../../helpers/initDB";
 import Product from "../../models/Product";
 
-initDB();
-
 export default async (req, res) => {
+  await initDB();
   switch (req.method) {
     case "GET":
       await getAllProducts(req, res);
@@ -16,7 +15,7 @@ export default async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({});
     res.status(200).json(products);
   } catch (e) {
     res.status(500).json("Internal Server Error!");

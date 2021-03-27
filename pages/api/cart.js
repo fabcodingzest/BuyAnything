@@ -2,9 +2,8 @@ import Cart from "../../models/Cart";
 import initDB from "../../helpers/initDB";
 import Authenticated from "../../middleware/Authenticated";
 
-initDB();
-
 export default async (req, res) => {
+  await initDB();
   switch (req.method) {
     case "GET":
       await fetchUserCart(req, res);

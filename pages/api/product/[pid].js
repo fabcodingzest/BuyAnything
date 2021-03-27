@@ -1,9 +1,8 @@
 import initDB from "../../../helpers/initDB";
 import Product from "../../../models/Product";
 
-initDB();
-
 export default async (req, res) => {
+  await initDB();
   switch (req.method) {
     case "GET":
       await getProduct(req, res);

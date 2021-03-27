@@ -5,9 +5,8 @@ import Stripe from "stripe";
 import { v4 as uuidV4 } from "uuid";
 import jwt from "jsonwebtoken";
 
-initDB();
-
 const stripe = Stripe(process.env.STRIPE_SECRET);
+await initDB();
 export default async (req, res) => {
   const { paymentInfo } = req.body;
   const { authorization } = req.headers;

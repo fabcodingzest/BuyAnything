@@ -3,9 +3,8 @@ import User from "../../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-initDB();
-
 export default async (req, res) => {
+  await initDB();
   const { email, password } = req.body;
   try {
     if (!email || !password) {

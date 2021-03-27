@@ -3,9 +3,8 @@ import User from "../../models/User";
 import Cart from "../../models/Cart";
 import bcrypt from "bcrypt";
 
-initDB();
-
 export default async (req, res) => {
+  await initDB();
   const { name, email, password } = req.body;
   try {
     if (!name || !email || !password) {
