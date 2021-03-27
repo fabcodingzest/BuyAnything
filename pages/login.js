@@ -29,23 +29,19 @@ const Login = () => {
   const toast = useToast();
   const router = useRouter();
   const onSubmit = async ({ email, password }) => {
-    try {
-      const res = await fetch(`${baseUrl}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      console.log(res);
-      const res2 = await res.json();
-      console.log(res2);
-    } catch (e) {
-      console.log(e);
-    }
+    const res = await fetch(`${baseUrl}/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    console.log(res);
+    const res2 = await res.json();
+    console.log(res2);
     if (res2.error) {
       toast({
         description: res2.error,
