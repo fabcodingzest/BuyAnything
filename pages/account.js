@@ -1,3 +1,4 @@
+import baseUrl from "../helpers/baseUrl";
 import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import Icon from "@chakra-ui/icon";
@@ -9,7 +10,6 @@ import { parseCookies } from "nookies";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdBorderColor } from "react-icons/md";
 import UserRoles from "../components/UserRoles";
-import baseUrl from "../helpers/baseUrl";
 
 const Account = ({ orders }) => {
   const cookie = parseCookies();
