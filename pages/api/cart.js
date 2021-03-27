@@ -1,5 +1,5 @@
-import Cart from "../../models/Cart";
 import initDB from "../../helpers/initDB";
+import Cart from "../../models/Cart";
 import Authenticated from "../../middleware/Authenticated";
 
 export default async (req, res) => {
