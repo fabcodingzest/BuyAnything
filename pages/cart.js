@@ -110,6 +110,12 @@ const Cart = ({ error, products }) => {
       body: JSON.stringify({ paymentInfo }),
     });
     const res2 = await res.json();
+    toast({
+      description: "Payment was successfully processed!",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   const TotalPrice = () => {

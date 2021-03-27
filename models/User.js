@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin", "root"],
     },
   },
-  { timeStamp: true }
+  { timestamps: true }
 );
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
