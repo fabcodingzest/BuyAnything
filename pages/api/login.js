@@ -1,6 +1,6 @@
 import initDB from "../../helpers/initDB";
 import User from "../../models/User";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export default async (req, res) => {

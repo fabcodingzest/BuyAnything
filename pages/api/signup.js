@@ -1,7 +1,7 @@
 import initDB from "../../helpers/initDB";
 import User from "../../models/User";
 import Cart from "../../models/Cart";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export default async (req, res) => {
   await initDB();
