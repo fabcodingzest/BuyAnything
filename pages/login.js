@@ -40,7 +40,6 @@ const Login = () => {
       }),
     });
     const res2 = await res.json();
-    console.log(res2);
     if (res2.error) {
       toast({
         description: res2.error,
