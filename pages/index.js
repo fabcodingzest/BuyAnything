@@ -76,13 +76,15 @@ const Home = ({ products }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(`${baseUrl}/api/products`);
   const products = await res.json();
   return {
     props: {
       products,
+      fallback: true,
     },
+    revalidate: 1,
   };
 }
 

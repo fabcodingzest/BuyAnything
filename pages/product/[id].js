@@ -110,6 +110,7 @@ const Product = ({ product }) => {
               src={product.mediaUrl}
               alt={product.name}
               borderRadius="lg"
+              maxH="400"
             />
           </Box>
           <Flex w={{ base: "100%", md: "50%" }} flexDirection="column">
