@@ -138,7 +138,7 @@ const Cart = ({ error, products }) => {
               stripeKey="pk_test_51IYd4QSBJ5YiiAXoH28eW4QXBaAzfsXAagvRSKIKsrPrsgdOcYdV1I3GZSddXtyhykjvh4TvIvtSN7F0wKcOqLxS00PfVApB52"
               token={(paymentInfo) => handleCheckout(paymentInfo)}
             >
-              <Button>Checkout</Button>
+              <Button colorScheme="yellow">Checkout</Button>
             </StripeCheckout>
           )}
         </Flex>
