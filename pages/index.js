@@ -6,22 +6,28 @@ import baseUrl from "../helpers/baseUrl";
 const Home = ({ products }) => {
   const productList = products.map((product) => {
     return (
-      <Flex p={4} borderRadius="lg" key={product._id}>
+      <Flex
+        alignItems="stretch"
+        borderRadius="lg"
+        borderWidth="1px"
+        m={4}
+        key={product._id}
+      >
         <Link href={`/product/${encodeURIComponent(product._id)}`}>
           <a>
             <Flex
               direction="column"
               maxW="xs"
-              p={3}
-              borderWidth="1px"
-              borderRadius="lg"
+              p={4}
+              justifyContent="space-between"
               overflow="hidden"
+              alignItems="stretch"
             >
-              <Flex direction="column" grow={1}>
+              <Flex direction="column">
                 <Image
                   src={product.mediaUrl}
                   alt={product.name}
-                  objectFit="cover"
+                  objectFit="contain"
                   borderRadius="lg"
                   h="300px"
                   mx="auto"
@@ -62,6 +68,7 @@ const Home = ({ products }) => {
         justifyContent="center"
         mt={10}
         h="100%"
+        alignItems="stretch"
       >
         {productList}
       </Flex>
@@ -71,11 +78,13 @@ const Home = ({ products }) => {
 
 export async function getStaticProps() {
   const res = await fetch(`${baseUrl}/api/products`);
-  const data = await res.json();
+  const products = await res.json();
   return {
     props: {
-      products: data,
+      products,
+      fallback: true,
     },
+    revalidate: 1,
   };
 }
 
