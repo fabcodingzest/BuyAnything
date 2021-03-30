@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
-import { Text, Box, Flex, Heading } from "@chakra-ui/layout";
+import { Text, Box, Flex, Heading, Container } from "@chakra-ui/layout";
 import {
   NumberInputField,
   NumberIncrementStepper,
@@ -73,134 +73,137 @@ const Product = ({ product }) => {
     });
   };
   return (
-    <Flex
-      p={{ base: 4, md: 10 }}
-      maxW="1200px"
-      mx="auto"
-      justifyContent="center"
-      flexDirection="column"
-      border="1px"
-      m={{ base: 2, md: 4 }}
-      borderRadius="lg"
-      borderColor="gray.300"
-    >
-      <Heading
-        align="center"
-        as="h1"
-        py={{ base: 6 }}
-        size="2xl"
-        textTransform={"uppercase"}
-      >
-        {product.name}
-      </Heading>
-
+    <Container maxW="container.xl">
       <Flex
-        px={6}
-        justifyContent="space-between"
-        align="start"
-        flexDirection={{ base: "column", md: "row" }}
+        m={6}
+        p={{ base: 4, md: 10 }}
+        justifyContent="center"
+        flexDirection="column"
+        border="1px"
+        m={{ base: 2, md: 4 }}
+        borderRadius="lg"
+        borderColor="gray.300"
       >
-        <Box
-          mb={{ base: 6, md: 0 }}
-          maxW={{ base: "300px", sm: "400px", md: "500px" }}
-          w={{ base: "100%", md: "40%" }}
+        <Heading
           align="center"
-          mx="auto"
+          as="h1"
+          py={{ base: 6 }}
+          size="xl"
+          textTransform={"uppercase"}
         >
-          <Image src={product.mediaUrl} alt={product.name} borderRadius="lg" />
-        </Box>
-        <Flex w={{ base: "100%", md: "50%" }} flexDirection="column">
-          <Text fontWeight="bold" fontSize={{ base: "md", md: "xl" }}>
-            Product Description lorem40
-          </Text>
-          <Text py={4} fontSize={{ base: "md", md: "xl" }}>
-            {product.description}
-          </Text>
-          <Flex align="center" justifyContent={"space-between"} mb={2}>
-            <Flex maxW={100}>
-              <NumberInput
-                defaultValue={quantity}
-                min={1}
-                max={100}
-                onChange={setQuantity}
-              >
-                <NumberInputField h={12} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </Flex>
-            <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
-              ₹ {product.price}
-            </Text>
-          </Flex>
-          <Flex
-            w={{ base: "60%", md: "100%" }}
+          {product.name}
+        </Heading>
+        <Flex
+          px={6}
+          justifyContent="space-between"
+          align="center"
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Box
+            mb={{ base: 6, md: 0 }}
+            maxW={{ base: "300px", sm: "400px", md: "500px" }}
+            w={{ base: "100%", md: "40%" }}
+            align="center"
             mx="auto"
-            justifyContent={{ base: "space-around", md: "space-between" }}
           >
-            {user ? (
-              <Button
-                onClick={() => AddToCart()}
-                my={4}
-                mr={3}
-                px={10}
-                maxW={40}
-                colorScheme="blue"
-              >
-                Add
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  router.push("/login");
-                }}
-                my={4}
-                mr={3}
-                px={10}
-                maxW={40}
-                colorScheme="blue"
-              >
-                Login to Add
-              </Button>
-            )}
-            {user.role === "admin" && user.role === "root" && (
-              <Button
-                onClick={onOpen}
-                my={4}
-                px={8}
-                maxW={40}
-                colorScheme="red"
-              >
-                Delete
-              </Button>
-            )}
+            <Image
+              src={product.mediaUrl}
+              alt={product.name}
+              borderRadius="lg"
+            />
+          </Box>
+          <Flex w={{ base: "100%", md: "50%" }} flexDirection="column">
+            <Text fontWeight="bold" fontSize={{ base: "md", md: "xl" }}>
+              Product Description
+            </Text>
+            <Text py={4} fontSize={{ base: "md", md: "xl" }}>
+              {product.description}
+            </Text>
+            <Flex align="center" justifyContent={"space-between"} mb={2}>
+              <Flex maxW={100}>
+                <NumberInput
+                  defaultValue={quantity}
+                  min={1}
+                  max={100}
+                  onChange={setQuantity}
+                >
+                  <NumberInputField h={12} />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Flex>
+              <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
+                ₹ {product.price}
+              </Text>
+            </Flex>
+            <Flex
+              w={{ base: "60%", md: "100%" }}
+              mx="auto"
+              justifyContent={{ base: "space-around", md: "space-between" }}
+            >
+              {user ? (
+                <Button
+                  onClick={() => AddToCart()}
+                  my={4}
+                  mr={3}
+                  px={10}
+                  maxW={40}
+                  colorScheme="blue"
+                >
+                  Add
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    router.push("/login");
+                  }}
+                  my={4}
+                  mr={3}
+                  px={10}
+                  maxW={40}
+                  colorScheme="blue"
+                >
+                  Login to Add
+                </Button>
+              )}
+              {(user.role === "admin" || user.role === "root") && (
+                <Button
+                  onClick={onOpen}
+                  my={4}
+                  px={8}
+                  maxW={40}
+                  colorScheme="red"
+                >
+                  Delete
+                </Button>
+              )}
+            </Flex>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent my="auto">
+                <ModalHeader textTransform="uppercase">
+                  {product.name}
+                </ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  Are you sure you want to delete this product?
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button colorScheme="red" onClick={() => deleteProduct()}>
+                    Yes
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Flex>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent my="auto">
-              <ModalHeader textTransform="uppercase">
-                {product.name}
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                Are you sure you want to delete this product?
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Button colorScheme="red" onClick={() => deleteProduct()}>
-                  Yes
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
         </Flex>
       </Flex>
-    </Flex>
+    </Container>
   );
 };
 

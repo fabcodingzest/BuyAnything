@@ -15,97 +15,97 @@ const Account = ({ orders }) => {
   const cookie = parseCookies();
   const user = cookie.user ? JSON.parse(cookie.user) : "";
 
-  const OrderHistory = () => {
+  const OrderItem = ({ item }) => {
     const { isOpen, onToggle } = useDisclosure();
+    return (
+      <Flex
+        justifyContent="space-between"
+        direction="column"
+        key={item._id}
+        border="1px"
+        p={4}
+        borderRadius="lg"
+        borderColor="gray.300"
+      >
+        <Flex justifyContent="space-between" width="100%">
+          <Text isTruncated>
+            <Icon as={MdBorderColor} boxSize={{ sm: 6 }} mr={4} />
+            {item.createdAt}
+          </Text>
+          <Button size="xs" onClick={onToggle}>
+            <Icon as={IoIosArrowDown} />
+          </Button>
+        </Flex>
+        <Collapse in={isOpen}>
+          <Box my={4} backgroundColor="gray.300" p={4} borderRadius="lg">
+            <Flex justifyContent="space-between" width="100%">
+              <Text fontWeight="bold">Items</Text>
+              <Text fontWeight="bold">Price</Text>
+            </Flex>
+            {item.products.map((pItem) => {
+              return (
+                <Flex
+                  justifyContent="space-between"
+                  width="100%"
+                  key={pItem._id}
+                >
+                  <Text as="h5" key={pItem._id} fontWeight="medium">
+                    {pItem.product.name} X {pItem.quantity}
+                  </Text>
+                  <Text fontWeight="medium">{pItem.product.price}</Text>
+                </Flex>
+              );
+            })}
+            <Text as="h5" align="end" fontSize="md" fontWeight="bold" mt={2}>
+              Total ₹ {item.total}
+            </Text>
+          </Box>
+        </Collapse>
+      </Flex>
+    );
+  };
+  const OrderHistory = () => {
     return (
       <Box>
         {orders.map((item) => {
-          return (
-            <Flex
-              justifyContent="space-between"
-              direction="column"
-              key={item._id}
-              border="1px"
-              p={4}
-              borderRadius="lg"
-              borderColor="gray.300"
-            >
-              <Flex justifyContent="space-between" width="100%">
-                <Text isTruncated>
-                  <Icon as={MdBorderColor} boxSize={{ sm: 6 }} mr={4} />
-                  {item.createdAt}
-                </Text>
-                <Button size="xs" onClick={onToggle}>
-                  <Icon as={IoIosArrowDown} />
-                </Button>
-              </Flex>
-              <Collapse in={isOpen}>
-                <Box my={4} backgroundColor="gray.300" p={4} borderRadius="lg">
-                  <Flex justifyContent="space-between" width="100%">
-                    <Text fontWeight="bold">Items</Text>
-                    <Text fontWeight="bold">Price</Text>
-                  </Flex>
-                  {item.products.map((pItem) => {
-                    return (
-                      <Flex
-                        justifyContent="space-between"
-                        width="100%"
-                        key={pItem._id}
-                      >
-                        <Text as="h5" key={pItem._id} fontWeight="medium">
-                          {pItem.product.name} X {pItem.quantity}
-                        </Text>
-                        <Text fontWeight="medium">{pItem.product.price}</Text>
-                      </Flex>
-                    );
-                  })}
-                  <Text
-                    as="h5"
-                    align="end"
-                    fontSize="md"
-                    fontWeight="bold"
-                    mt={2}
-                  >
-                    Total ₹ {item.total}
-                  </Text>
-                </Box>
-              </Collapse>
-            </Flex>
-          );
+          return <OrderItem item={item} />;
         })}
       </Box>
     );
   };
   return (
-    <Container maxW="container.lg">
-      <Box
-        p={10}
-        backgroundColor="blue.500"
-        color="white"
-        align="center"
-        mb={6}
-      >
-        <Text as="h1" fontSize="3xl" fontWeight="bold">
-          Account Details
-        </Text>
-        <Text py={4} fontSize="xl">
-          Name: {user.name}
-        </Text>
-        <Text fontSize="xl">Email: {user.email}</Text>
-      </Box>
-      <Text as="h2">Order History</Text>
-      {orders.length === 0 ? (
-        <Container>
-          <Text as="h3" fontSize="2xl">
-            You have no order History
+    <Container maxW="container.lg" h="100%">
+      <Flex direction="column" justifyContent="start">
+        <Flex
+          p={10}
+          direction="column"
+          backgroundColor="blue.500"
+          color="white"
+          align="center"
+          mb={6}
+        >
+          <Text as="h1" fontSize="3xl" fontWeight="bold">
+            Account Details
           </Text>
-        </Container>
-      ) : (
-        <Box>
-          <OrderHistory />
-        </Box>
-      )}
-      {user.role === "root" && <UserRoles />}
+          <Text py={4} fontSize="xl">
+            Name: {user.name}
+          </Text>
+          <Text fontSize="xl">Email: {user.email}</Text>
+        </Flex>
+        <Text as="h2">Order History</Text>
+        {orders.length === 0 ? (
+          <Container>
+            <Text as="h3" fontSize="2xl">
+              You have no order History
+            </Text>
+          </Container>
+        ) : (
+          <Box>
+            <OrderHistory />
+          </Box>
+        )}
+        {user.role === "root" && <UserRoles />}
+      </Flex>
     </Container>
   );
 };
