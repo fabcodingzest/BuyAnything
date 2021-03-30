@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 
 const validationSchema = Yup.object({
   name: Yup.string()
-    .max(70, "Name should be 70 characters or less")
+    .max(200, "Name should be 70 characters or less")
     .required("Name is Required!"),
   price: Yup.number()
     .integer("Must be a number!")
