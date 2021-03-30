@@ -17,7 +17,6 @@ import { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
 const Cart = ({ error, products }) => {
-  console.log(products);
   const [cProducts, setCProducts] = useState(products);
   const { token } = parseCookies();
   const toast = useToast();
@@ -165,7 +164,6 @@ export async function getServerSideProps(ctx) {
     },
   });
   const products = await res.json();
-  console.log(products);
   if (products.error) {
     return { props: { error: products.error } };
   }

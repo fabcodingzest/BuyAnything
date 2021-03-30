@@ -68,7 +68,7 @@ const Account = ({ orders }) => {
     return (
       <Box>
         {orders.map((item) => {
-          return <OrderItem item={item} />;
+          return <OrderItem item={item} key={item._id} />;
         })}
       </Box>
     );
